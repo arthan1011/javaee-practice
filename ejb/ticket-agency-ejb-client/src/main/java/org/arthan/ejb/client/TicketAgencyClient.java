@@ -9,7 +9,11 @@ import org.arthan.ejb.exceptions.SeatBookedException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +23,7 @@ import java.util.logging.Logger;
 public class TicketAgencyClient {
 
     private final Logger logger = Logger.getLogger(TicketAgencyClient.class.getName());
+    private final List<Future<String>> lastBooked = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
         Logger.getLogger("org.jboss").setLevel(Level.SEVERE);
@@ -39,7 +44,7 @@ public class TicketAgencyClient {
     }
 
     private enum Command {
-        BOOK, LIST, MONEY, QUIT, INVALID;
+        BOOK, LIST, MONEY, QUIT, INVALID, BOOKASYNC, MAIL;
 
         public static Command parseCommand(String command) {
             try {
@@ -64,6 +69,12 @@ public class TicketAgencyClient {
                 case BOOK:
                     handleBook();
                     break;
+                case BOOKASYNC:
+                    handleBookAsync();
+                    break;
+                case MAIL:
+                    handleMail();
+                    break;
                 case LIST:
                     handleList();
                     break;
@@ -77,6 +88,44 @@ public class TicketAgencyClient {
                     logger.warning("Unknown command " + stringCommand);
             }
         }
+    }
+
+    private void handleMail() {
+        boolean displayed = false;
+        final List<Future<String>> notFinished = new ArrayList<>();
+
+        for (Future<String> future : lastBooked) {
+            if (future.isDone()) {
+                try {
+                    String result = future.get();
+                    logger.info("Mail received: " + result);
+                    displayed = true;
+                } catch (InterruptedException | ExecutionException e) {
+                    logger.warning(e.getMessage());
+                }
+            } else {
+                notFinished.add(future);
+            }
+        }
+
+        lastBooked.retainAll(notFinished);
+        if (!displayed) {
+            logger.info("No mail received");
+        }
+    }
+
+    private void handleBookAsync() {
+        int seatID;
+
+        try {
+            seatID = IOUtils.readInt("Enter seat ID: ");
+        } catch (NumberFormatException e) {
+            logger.warning("Wrong Seat ID format");
+            return;
+        }
+
+        lastBooked.add(theatreBooker.bookSeatAsync(seatID));
+        logger.info("Booking issued. Verify your email.");
     }
 
     private void showWelcomeMessage() {
