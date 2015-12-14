@@ -9,7 +9,36 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>ticket-agency.ejb</artifactId>
+  <artifactId>ticket-agency-ejb</artifactId>
+  <packaging>ejb</packaging>
 
+  <build>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <!--Wildfly plugin-->
+      <plugin>
+        <groupId>org.wildfly.plugins</groupId>
+        <artifactId>wildfly-maven-plugin</artifactId>
+        <version>1.0.2.Final</version>
+        <configuration>
+          <filename>${project.build.finalName}.jar</filename>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-ejb-plugin</artifactId>
+        <configuration>
+          <ejbVersion>3.2</ejbVersion>
+          <generateClient>true</generateClient>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
