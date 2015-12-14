@@ -55,4 +55,14 @@ public class Seat {
     public void setBooked(boolean booked) {
         this.booked = booked;
     }
+
+    @Override
+    public String toString() {
+        return "Seat{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", booked=" + booked +
+                '}';
+    }
 }
