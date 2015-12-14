@@ -6,6 +6,7 @@ import org.arthan.ejb.model.Seat;
 import org.jboss.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.*;
 import java.util.Collection;
 import java.util.Collections;
@@ -22,11 +23,15 @@ import java.util.concurrent.TimeUnit;
 @AccessTimeout(value = 5, unit = TimeUnit.MINUTES)
 public class TheatreBox {
     private static final Logger logger = Logger.getLogger(TheatreBox.class);
+    private static final long DURATION = TimeUnit.SECONDS.toMillis(7);
 
     private Map<Integer, Seat> seats;
 
+    @Resource
+    TimerService timerService;
+
     @PostConstruct
-    public void setUpTheatre() {
+    public void setupTheatre() {
         seats = new HashMap<>();
         int id = 0;
         for (int i = 0; i < 5; i++) {
@@ -35,6 +40,15 @@ public class TheatreBox {
             addSeat(new Seat(++id, "Balcony", 10));
         }
         logger.info("Seats map constructed.");
+    }
+
+    public void createTimer() {
+        timerService.createSingleActionTimer(DURATION, new TimerConfig());
+    }
+
+    public void timeout(Timer timer) {
+        logger.info("Re-building Theatre Map");
+        setupTheatre();
     }
 
     private void addSeat(Seat seat) {
