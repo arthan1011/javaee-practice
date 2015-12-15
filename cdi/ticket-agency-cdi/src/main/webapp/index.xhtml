@@ -3,47 +3,58 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
                 template="WEB-INF/templates/default.xhtml"
         >
     <ui:define name="content">
-        <h1>Ticket Machine</h1>
-        <h:form id="reg">
-            <h3>Money: $ #{theatreBooker.money}</h3>
-            <h:messages infoClass="info"
-                        errorClass="error"
-                        globalOnly="true" />
-            <h:panelGrid columns="1"
-                         border="1"
-                         styleClass="smoke">
-                <h:dataTable var="_seat"
-                             value="#{seats}"
-                             styleClass="simpletablestyle"
-                             rendered="#{not empty seats}">
-                    <h:column>
-                        <f:facet name="header">ID</f:facet>
-                        #{_seat.id}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Name</f:facet>
-                        #{_seat.name}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Price</f:facet>
-                        #{_seat.price}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Booked</f:facet>
-                        #{_seat.booked}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Action</f:facet>
-                        <h:commandButton id="book"
-                                         disabled="#{_seat.booked}"
-                                         value="#{_seat.booked ? 'Reserved' : 'Book'}"
-                                         action="#{theatreBooker.bookSeat(_seat.id)}" />
-                    </h:column>
-                </h:dataTable>
-            </h:panelGrid>
-        </h:form>
+        <f:view>
+            <h:form id="reg">
+                <a4j:poll id="poller"
+                          interval="2000"
+                          enabled="#{pollerBean.pollingActive}"
+                          render="poller, grid, bookedCounter" />
+                <rich:panel header="TickerBooker Machine"
+                            style="width: 300px">
+                    <h2>Book your Ticket</h2>
+
+                    <h3>Money: $ #{theatreBooker.money}</h3>
+                    <h:messages infoClass="info"
+                                errorClass="error"
+                                globalOnly="true" />
+                    <rich:dataTable var="_seat"
+                                    id="grid"
+                                    value="#{seats}"
+                                    styleClass="simpletablestyle"
+                                    rendered="#{not empty seats}">
+                        <h:column>
+                            <f:facet name="header">ID</f:facet>
+                            #{_seat.id}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Name</f:facet>
+                            #{_seat.name}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Price</f:facet>
+                            #{_seat.price}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Booked</f:facet>
+                            #{_seat.booked}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Action</f:facet>
+                            <h:commandButton id="book"
+                                             disabled="#{_seat.booked}"
+                                             value="#{_seat.booked ? 'Not Available' : 'Book'}"
+                                             action="#{theatreBooker.bookSeat(_seat.id)}" />
+                        </h:column>
+                    </rich:dataTable>
+                    <h:outputText value="Booked seats on this page: #{bookingRecord.bookingCount}"
+                                  id="bookedCounter" />
+                </rich:panel>
+            </h:form>
+        </f:view>
     </ui:define>
 </ui:composition>

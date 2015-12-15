@@ -11,6 +11,17 @@
 
   <artifactId>ticket-agency-cdi</artifactId>
   <packaging>war</packaging>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-bom</artifactId>
+        <version>4.3.7.Final</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -26,6 +37,17 @@
       <version>3.3.0.Final</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.richfaces.ui</groupId>
+      <artifactId>richfaces-components-ui</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.richfaces.core</groupId>
+      <artifactId>richfaces-core-impl</artifactId>
+    </dependency>
+
   </dependencies>
 
   <build>
