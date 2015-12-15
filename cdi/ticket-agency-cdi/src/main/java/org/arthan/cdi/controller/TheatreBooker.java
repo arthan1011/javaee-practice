@@ -1,5 +1,6 @@
 package org.arthan.cdi.controller;
 
+import org.arthan.cdi.annotations.Logged;
 import org.jboss.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +17,7 @@ import java.io.Serializable;
 
 @SessionScoped
 @Named
+@Logged
 public class TheatreBooker implements Serializable {
 
     @Inject
