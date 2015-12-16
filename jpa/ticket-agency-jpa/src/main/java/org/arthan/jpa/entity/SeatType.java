@@ -30,7 +30,7 @@ public class SeatType implements Serializable {
     @NotNull
     private int quantity;
 
-    private SeatPosition seatPosition;
+    private SeatPosition position;
 
     @OneToMany(mappedBy = "seatType", fetch = FetchType.EAGER)
     private List<Seat> seats;
@@ -73,5 +73,13 @@ public class SeatType implements Serializable {
 
     public void setSeats(List<Seat> seats) {
         this.seats = seats;
+    }
+
+    public SeatPosition getPosition() {
+        return position;
+    }
+
+    public void setPosition(SeatPosition position) {
+        this.position = position;
     }
 }
