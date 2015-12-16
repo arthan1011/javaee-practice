@@ -1,6 +1,7 @@
 package org.arthan.jpa.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by ashamsiev on 16.12.2015
@@ -8,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "seat")
-public class Seat {
+public class Seat implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

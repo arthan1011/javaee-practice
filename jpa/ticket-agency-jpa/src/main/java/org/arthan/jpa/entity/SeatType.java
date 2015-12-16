@@ -1,6 +1,9 @@
 package org.arthan.jpa.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,11 +19,18 @@ public class SeatType implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Size(min = 1, max = 25, message = "You need to enter a seat description (max 25 char)")
+    @Pattern(regexp = "[A-Za-z\\s]*", message = "Description must contain only letters and spaces")
     private String description;
 
+    @NotNull
     private int price;
 
+    @NotNull
     private int quantity;
+
+    private SeatPosition seatPosition;
 
     @OneToMany(mappedBy = "seatType", fetch = FetchType.EAGER)
     private List<Seat> seats;
