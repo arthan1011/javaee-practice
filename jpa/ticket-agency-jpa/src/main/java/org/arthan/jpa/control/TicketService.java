@@ -4,6 +4,7 @@ import org.arthan.jpa.entity.Seat;
 import org.arthan.jpa.entity.SeatType;
 import org.jboss.logging.Logger;
 
+import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 /**
  * Created by ashamsiev on 16.12.2015
  */
+
+@Stateless
 public class TicketService {
 
     @Inject

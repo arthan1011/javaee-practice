@@ -32,7 +32,7 @@ public class SeatType implements Serializable {
 
     private SeatPosition position;
 
-    @OneToMany(mappedBy = "seatType", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "type", fetch = FetchType.EAGER)
     private List<Seat> seats;
 
     public Long getId() {

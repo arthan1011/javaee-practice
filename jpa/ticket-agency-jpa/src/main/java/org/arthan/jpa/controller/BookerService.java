@@ -23,8 +23,6 @@ public class BookerService implements Serializable {
     Logger logger;
     @Inject
     TicketService ticketService;
-    @Inject
-    FacesContext facesContext;
 
     private int money;
 
@@ -40,7 +38,7 @@ public class BookerService implements Serializable {
                     FacesMessage.SEVERITY_ERROR,
                     "Not enough money!",
                     "Registration unsuccessful");
-            facesContext.addMessage(null, notMoneyMessage);
+            FacesContext.getCurrentInstance().addMessage(null, notMoneyMessage);
             return;
         }
 
@@ -50,7 +48,7 @@ public class BookerService implements Serializable {
                 FacesMessage.SEVERITY_INFO,
                 "Registered!",
                 "Registration successful");
-        facesContext.addMessage(null, bookedMessage);
+        FacesContext.getCurrentInstance().addMessage(null, bookedMessage);
         logger.infov("Seat #{0} booked.", seatID);
 
         money -= price;
