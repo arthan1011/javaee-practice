@@ -20,4 +20,28 @@ public class Seat implements Serializable {
     @ManyToOne
     @JoinColumn(name = "seat_id")
     private SeatType type;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean isBooked() {
+        return booked;
+    }
+
+    public void setBooked(boolean booked) {
+        this.booked = booked;
+    }
+
+    public SeatType getType() {
+        return type;
+    }
+
+    public void setType(SeatType type) {
+        this.type = type;
+    }
 }
