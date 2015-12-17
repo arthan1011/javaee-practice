@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ironjacamar>
+  <connection-definitions>
+    <connection-definition
+        classname="org.apache.activemq.ra.ActiveMQManagedConnectionFactory"
+        jndiname="java:jboss/activemq/TopicConnectionFactory"
+        poolname="TopicConnectionFactory">
+      <pool>
+        <min-pool-size>1</min-pool-size>
+        <max-pool-size>200</max-pool-size>
+        <prefill>false</prefill>
+      </pool>
+      <security>
+        <application/>
+      </security>
+      <timeout>
+        <blocking-timeout-millis>30000</blocking-timeout-millis>
+        <idle-timeout-minutes>3</idle-timeout-minutes>
+      </timeout>
+      <validation>
+        <background-validation>false</background-validation>
+        <use-fast-fail>false</use-fast-fail>
+      </validation>
+    </connection-definition>
+    <connection-definition classname="org.apache.activemq.ra.ActiveMQManagedConnectionFactory"
+                           jndiname="java:jboss/activemq/QueueConnectionFactory"
+                           poolname="QueueConnectionFactory">
+      <pool>
+        <min-pool-size>1</min-pool-size>
+        <max-pool-size>200</max-pool-size>
+        <prefill>false</prefill>
+      </pool>
+      <security>
+        <application/>
+      </security>
+      <timeout>
+        <blocking-timeout-millis>30000</blocking-timeout-millis>
+        <idle-timeout-minutes>3</idle-timeout-minutes>
+      </timeout>
+      <validation>
+        <background-validation>false</background-validation>
+        <use-fast-fail>false</use-fast-fail>
+      </validation>
+    </connection-definition>
+  </connection-definitions>
+  <admin-objects>
+    <admin-object class-name="org.apache.activemq.command.ActiveMQQueue"
+                  jndi-name="java:jboss/activemq/queue/TicketQueue">
+      <config-property name="PhysicalName">
+        activemq/queue/TicketQueue
+      </config-property>
+    </admin-object>
+  </admin-objects>
+</ironjacamar>
