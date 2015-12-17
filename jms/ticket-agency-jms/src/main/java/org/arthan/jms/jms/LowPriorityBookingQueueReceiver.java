@@ -12,21 +12,21 @@ import java.util.logging.Logger;
  * Created by ashamsiev on 17.12.2015
  */
 
-@MessageDriven(name = "BookingQueueReceiver", activationConfig = {
+@MessageDriven(name = "LowPriorityBookingQueueReceiver", activationConfig = {
         @ActivationConfigProperty(
                 propertyName = "destinationLookup",
                 propertyValue = BookingQueueDefinition.BOOKING_QUEUE
         ),
         @ActivationConfigProperty(
                 propertyName = "destinationType",
-                propertyValue = "javax.jsm.Queue"
+                propertyValue = "javax.jms.Queue"
         ),
         @ActivationConfigProperty(
                 propertyName = "messageSelector",
-                propertyValue = "priority = 'HIGH'"
+                propertyValue = "priority = 'LOW'"
         )
 })
-public class BookingQueueReceiver implements MessageListener {
+public class LowPriorityBookingQueueReceiver implements MessageListener {
 
     @Inject
     Logger logger;
@@ -34,7 +34,7 @@ public class BookingQueueReceiver implements MessageListener {
     public void onMessage(Message message) {
         try {
             final String text = message.getBody(String.class);
-            logger.info("Received message: " + text);
+            logger.info("Low priority message received: " + text);
         } catch (JMSException e) {
             logger.severe(e.toString());
         }

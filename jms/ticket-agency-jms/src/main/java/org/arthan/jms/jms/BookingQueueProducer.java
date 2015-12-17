@@ -20,7 +20,10 @@ public class BookingQueueProducer {
     @Resource(mappedName = BookingQueueDefinition.BOOKING_QUEUE)
     Queue syncQueue;
 
-    public void sendMessage(String text) {
-        context.createProducer().setAsync(bookingCompletionListener).send(syncQueue, text);
+    public void sendMessage(String text, Priority priority) {
+        context.createProducer()
+                .setProperty("priority", priority.toString())
+                .setAsync(bookingCompletionListener)
+                .send(syncQueue, text);
     }
 }

@@ -2,6 +2,7 @@ package org.arthan.jms.controller;
 
 import org.arthan.jms.control.TicketService;
 import org.arthan.jms.jms.BookingQueueProducer;
+import org.arthan.jms.jms.Priority;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -57,7 +58,10 @@ public class BookerService implements Serializable {
 
         money -= price;
 
-        bookingQueueProducer.sendMessage("[JMS Message] User registered seat " + seatID);
+        bookingQueueProducer.sendMessage(
+                "[JMS Message] User registered seat " + seatID,
+                Priority.HIGH
+        );
     }
 
     public int getMoney() {
