@@ -21,7 +21,7 @@ import java.util.logging.Logger;
         ),
         @ActivationConfigProperty(
                 propertyName = "destinationType",
-                propertyValue = "javax.jsm.Queue"
+                propertyValue = "javax.jms.Queue"
         )
 })
 @ResourceAdapter(value = "activemq-rar-5.9.0.rar")
