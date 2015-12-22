@@ -10,6 +10,7 @@
   <version>1.0-SNAPSHOT</version>
   <modules>
     <module>ticket-agency-ws</module>
+    <module>ticket-agency-ws-client</module>
   </modules>
 
 
