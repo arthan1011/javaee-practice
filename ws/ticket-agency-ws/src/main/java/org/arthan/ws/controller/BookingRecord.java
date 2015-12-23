@@ -2,7 +2,7 @@ package org.arthan.ws.controller;
 
 
 import org.arthan.ws.annotations.NamedView;
-import org.arthan.ws.model.Seat;
+import org.arthan.ws.entity.Seat;
 
 import javax.enterprise.event.Observes;
 import java.io.Serializable;

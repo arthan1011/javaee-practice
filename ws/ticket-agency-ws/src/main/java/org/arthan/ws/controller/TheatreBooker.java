@@ -25,8 +25,6 @@ public class TheatreBooker implements Serializable {
     Logger logger;
     @Inject
     TheatreBox theatreBox;
-    @Inject
-    FacesContext facesContext;
 
     private Account currentAccount;
 
@@ -40,15 +38,16 @@ public class TheatreBooker implements Serializable {
         int price = theatreBox.getSeatPrice(seatID);
 
         if (price > currentAccount.getBalance()) {
-            FacesMessage noMoneyMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Not enough money!", "Registration unsuccessful");
-            facesContext.addMessage(null, noMoneyMessage);
+            FacesMessage noMoneyMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_INFO,
+                    "Not enough money!",
+                    "Registration unsuccessful");
             return;
         }
 
         theatreBox.buyTicket(seatID);
 
         FacesMessage successMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Booked!", "Booking successful");
-        facesContext.addMessage(null, successMessage);
 
         logger.info("Seat #" + seatID + " booked.");
 

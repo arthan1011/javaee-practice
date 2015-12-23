@@ -1,6 +1,6 @@
 package org.arthan.ws.boundary;
 
-import org.arthan.ws.model.Seat;
+import org.arthan.ws.entity.Seat;
 
 /**
  * Created by Артур on 22.12.2015.

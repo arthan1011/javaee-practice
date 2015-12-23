@@ -1,4 +1,4 @@
-package org.arthan.ws.model;
+package org.arthan.ws.entity;
 
 /**
  * Created by ashamsiev on 11.12.2015

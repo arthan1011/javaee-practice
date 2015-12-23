@@ -1,7 +1,7 @@
 package org.arthan.ws.controller;
 
 
-import org.arthan.ws.model.Seat;
+import org.arthan.ws.entity.Seat;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.event.Observes;

@@ -1,6 +1,6 @@
 package org.arthan.ws.controller;
 
-import org.arthan.ws.model.Seat;
+import org.arthan.ws.entity.Seat;
 import org.jboss.logging.Logger;
 
 import javax.annotation.PostConstruct;

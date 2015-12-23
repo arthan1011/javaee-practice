@@ -14,6 +14,9 @@ public class AccountDto {
         this.balance = balance;
     }
 
+    public AccountDto() {
+    }
+
     public int getBalance() {
         return balance;
     }
