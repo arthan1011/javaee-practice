@@ -67,7 +67,7 @@ public class TheatreBox implements Serializable {
     }
 
     @Lock(LockType.READ)
-    private  Seat getSeat(int seatID) {
+    public Seat getSeat(int seatID) {
         return seats.get(seatID);
     }
 }

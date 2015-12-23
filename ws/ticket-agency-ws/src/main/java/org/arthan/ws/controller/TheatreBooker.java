@@ -1,6 +1,7 @@
 package org.arthan.ws.controller;
 
 import org.arthan.ws.annotations.Logged;
+import org.arthan.ws.entity.Account;
 import org.jboss.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -27,18 +28,18 @@ public class TheatreBooker implements Serializable {
     @Inject
     FacesContext facesContext;
 
-    private int money;
+    private Account currentAccount;
 
     @PostConstruct
     public void createCustomer() {
-        money = 100;
+        currentAccount = new Account(100);
     }
 
     public void bookSeat(int seatID) {
         logger.info("Booking seat #" + seatID);
         int price = theatreBox.getSeatPrice(seatID);
 
-        if (price > money) {
+        if (price > currentAccount.getBalance()) {
             FacesMessage noMoneyMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Not enough money!", "Registration unsuccessful");
             facesContext.addMessage(null, noMoneyMessage);
             return;
@@ -51,10 +52,10 @@ public class TheatreBooker implements Serializable {
 
         logger.info("Seat #" + seatID + " booked.");
 
-        money -= price;
+        currentAccount = currentAccount.charge(price);
     }
 
-    public int getMoney() {
-        return money;
+    public Account getCurrentAccount() {
+        return currentAccount;
     }
 }
