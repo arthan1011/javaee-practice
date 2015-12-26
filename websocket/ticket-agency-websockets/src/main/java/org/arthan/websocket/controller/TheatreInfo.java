@@ -1,8 +1,6 @@
 package org.arthan.websocket.controller;
 
-
-import org.arthan.ws.entity.Seat;
-
+import org.arthan.websocket.entity.Seat;
 import javax.annotation.PostConstruct;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.Reception;

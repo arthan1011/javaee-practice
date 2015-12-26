@@ -2,15 +2,13 @@ package org.arthan.websocket.boundary;
 
 import org.arthan.websocket.control.SessionRegistry;
 import org.arthan.websocket.entity.Seat;
+import org.jboss.logging.Logger;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
-import javax.websocket.EndpointConfig;
-import javax.websocket.OnClose;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
+import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 
 /**
@@ -22,14 +20,17 @@ import javax.websocket.server.ServerEndpoint;
 public class TicketEnpoint {
     @Inject
     SessionRegistry sessionRegistry;
+    @Inject
+    Logger logger;
 
     @OnOpen
     public void open(Session session, EndpointConfig config) {
+        logger.info("Adding session");
         sessionRegistry.add(session);
     }
 
     @OnClose
-    public void close(Session session, EndpointConfig config) {
+    public void close(Session session, CloseReason reason) {
         sessionRegistry.remove(session);
     }
 

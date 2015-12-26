@@ -1,7 +1,6 @@
 package org.arthan.websocket.controller;
 
-import org.arthan.ws.annotations.Logged;
-import org.arthan.ws.entity.Account;
+import org.arthan.websocket.entity.Account;
 import org.jboss.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +16,6 @@ import java.io.Serializable;
 
 @SessionScoped
 @Named
-@Logged
 public class TheatreBooker implements Serializable {
 
     @Inject
