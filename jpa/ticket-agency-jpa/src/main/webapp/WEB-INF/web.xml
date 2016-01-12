@@ -3,31 +3,6 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
     http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
     version="3.1">
-  
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>HtmlAuth</web-resource-name>
-      <description>Application security constraints</description>
-      <url-pattern>/*</url-pattern>
-      <http-method>GET</http-method>
-      <http-method>POST</http-method>
-    </web-resource-collection>
-    <auth-constraint>
-      <role-name>Manager</role-name>
-    </auth-constraint>
-  </security-constraint>
-  <login-config>
-    <auth-method>FORM</auth-method>
-    <form-login-config>
-      <form-login-page>/faces/login.xhtml</form-login-page>
-      <form-error-page>/faces/error.xhtml</form-error-page>
-    </form-login-config>
-  </login-config>
-
-  <security-role>
-    <role-name>Manager</role-name>
-  </security-role>
-  
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
